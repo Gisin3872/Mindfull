@@ -8,7 +8,7 @@ var con = mysql.createConnection({
   host: "bvm25.cci.drexel.edu",
   user: "wk77",
   password: "dee4JaeL-oSau5Kai-eeG0AuF6",
-  database: "wk77_INFO300_202103"
+  database: "wk77_INFO153_202103"
 });
 
 con.connect(function(err) {
