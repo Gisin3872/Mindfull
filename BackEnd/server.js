@@ -17,14 +17,14 @@ con.connect(function(err) {
 });
 
 app.get('/api/messages', (req, res) => {
-    con.query("SELECT * FROM messages", function (err, result) {
+    con.query("SELECT * FROM Messages", function (err, result) {
         if (err) throw err;
         res.json(result);
     });
 });
 
 app.post('/api/messages', (req, res) => {
-    var sql = "INSERT INTO messages (content) VALUES (?)";
+    var sql = "INSERT INTO Messages (content) VALUES (?)";
     con.query(sql, [req.body.content], function (err, result) {
         if (err) throw err;
         console.log("Message inserted");
@@ -33,14 +33,14 @@ app.post('/api/messages', (req, res) => {
 });
 
 app.get('/api/journals', (req, res) => {
-    con.query("SELECT * FROM journals", function (err, result) {
+    con.query("SELECT * FROM JournalEntry", function (err, result) {
         if (err) throw err;
         res.json(result);
     });
 });
 
 app.post('/api/journals', (req, res) => {
-    var sql = "INSERT INTO journals (content) VALUES (?)";
+    var sql = "INSERT INTO JournalEntry (content) VALUES (?)";
     con.query(sql, [req.body.content], function (err, result) {
         if (err) throw err;
         console.log("Journal entry inserted");
