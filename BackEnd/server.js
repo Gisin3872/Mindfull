@@ -45,7 +45,7 @@ app.get('/api/journals', (req, res) => {
 app.post('/api/journals', (req, res) => {
     console.log('post request to API/journals');
     console.log(req.body);
-    var sql = "INSERT INTO JournalEntry ?";
+    var sql = "INSERT INTO JournalEntry SET ?";
     con.query(sql, req.body, function (err, result) {
         if (err) throw err;
         console.log("Journal entry inserted");
