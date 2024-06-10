@@ -10,9 +10,19 @@ export default function ReceiveMessage() {
   }, []);
 
   const fetchMessages = () => {
-    axios.get('http://node.cci.drexel.edu:9378/api/messages')
+    axios.get('<http://node.cci.drexel.edu:9378/api/messages>')
       .then(response => {
-        setMessages(response.data);
+        const newMessages = [];
+        response.data.forEach((message, index) => {
+          newMessages.push(message);
+          if (index % 2 === 0) {
+            newMessages.push({
+              UserId: '5893',
+              Content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+            });
+          }
+        });
+        setMessages(newMessages);
       })
       .catch(() => {
         Alert.alert('Error', 'Could not fetch messages');
@@ -30,45 +40,53 @@ export default function ReceiveMessage() {
           </View>
         )}
       />
-      <TouchableOpacity style={styles.button} onPress={fetchMessages}>
-        <Text style={styles.buttonText}>Receive Messages</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonContainer}>
+        <TouchableOpacity style={styles.button} onPress={fetchMessages}>
+          <Text style={styles.buttonText}>Receive Messages</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#0D1B2A',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  message: {
-    backgroundColor: '#1B263B',
-    padding: 10,
-    margin: 10,
-    borderRadius: 20,
-    width: '80%',
-  },
-  messageText: {
-    color: '#E0E1DD',
-  },
-  fromUser: {
-    backgroundColor: '#1B263B',
-  },
-  fromOther: {
-    backgroundColor: '#778DA9',
-  },
-  button: {
-    backgroundColor: '#778DA9',
-    padding: 10,
-    borderRadius: 20,
-    width: '80%',
-    alignItems: 'center',
-    marginBottom: 40,
-  },
-  buttonText: {
-    color: '#0D1B2A',
-  },
-});
+  
+  const styles = StyleSheet.create({
+    container: {
+      flex: 1,
+      backgroundColor: '#0D1B2A',
+      justifyContent: 'flex-start',
+    },
+    buttonContainer: {
+      alignItems: 'center',
+      width: '100%',
+    },
+    message: {
+      backgroundColor: '#1B263B',
+      padding: 10,
+      margin: 10,
+      borderRadius: 20,
+      width: '70%',
+      flexGrow: 1,
+    },
+    messageText: {
+      color: '#E0E1DD',
+    },
+    fromUser: {
+      alignSelf: 'flex-end',
+      backgroundColor: '#1B263B',
+    },
+    fromOther: {
+      alignSelf: 'flex-start',
+      backgroundColor: '#778DA9',
+    },
+    button: {
+      backgroundColor: '#778DA9',
+      padding: 10,
+      borderRadius: 20,
+      width: '50%',
+      alignItems: 'center',
+      marginBottom: 40,
+    },
+    buttonText: {
+      color: '#0D1B2A',
+    },
+  });
