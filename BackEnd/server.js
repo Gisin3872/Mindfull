@@ -17,6 +17,7 @@ con.connect(function(err) {
 });
 
 app.get('/api/messages', (req, res) => {
+    console.log('get request to API/messages');
     con.query("SELECT * FROM Messages", function (err, result) {
         if (err) throw err;
         res.json(result);
@@ -24,6 +25,7 @@ app.get('/api/messages', (req, res) => {
 });
 
 app.post('/api/messages', (req, res) => {
+    console.log('post request to API/messages');
     var sql = "INSERT INTO Messages (content) VALUES (?)";
     con.query(sql, [req.body.content], function (err, result) {
         if (err) throw err;
@@ -33,6 +35,7 @@ app.post('/api/messages', (req, res) => {
 });
 
 app.get('/api/journals', (req, res) => {
+    console.log('get request to API/journals');
     con.query("SELECT * FROM JournalEntry", function (err, result) {
         if (err) throw err;
         res.json(result);
@@ -40,6 +43,7 @@ app.get('/api/journals', (req, res) => {
 });
 
 app.post('/api/journals', (req, res) => {
+    console.log('post request to API/journals');
     var sql = "INSERT INTO JournalEntry (content) VALUES (?)";
     con.query(sql, [req.body.content], function (err, result) {
         if (err) throw err;
