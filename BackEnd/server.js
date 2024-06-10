@@ -26,8 +26,8 @@ app.get('/api/messages', (req, res) => {
 
 app.post('/api/messages', (req, res) => {
     console.log('post request to API/messages');
-    var sql = "INSERT INTO Messages (content) VALUES (?)";
-    con.query(sql, [req.body.content], function (err, result) {
+    var sql = "INSERT INTO Messages (content, UserId) VALUES (?)";
+    con.query(sql, [req.body.content, req.body.UserId], function (err, result) {
         if (err) throw err;
         console.log("Message inserted");
         res.json({ message: 'Message inserted' });

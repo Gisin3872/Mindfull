@@ -9,6 +9,7 @@ function SendMessage() {
     axios
       .post('http://node.cci.drexel.edu:9378/api/messages', {
         content: message,
+        UserId: '1123',
       })
       .then(() => {
         Alert.alert('Success', 'Message sent');

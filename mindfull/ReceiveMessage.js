@@ -25,8 +25,8 @@ export default function ReceiveMessage() {
         data={messages}
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item }) => (
-          <View style={styles.message}>
-            <Text style={styles.messageText}>{item.content}</Text>
+          <View style={item.UserId === '1123' ? { ...styles.message, ...styles.fromUser} : {...styles.message, ...styles.fromOther}}>
+            <Text style={styles.messageText}>{item.Content}</Text>
           </View>
         )}
       />
@@ -53,6 +53,12 @@ const styles = StyleSheet.create({
   },
   messageText: {
     color: '#E0E1DD',
+  },
+  fromUser: {
+    backgroundColor: '#1B263B',
+  },
+  fromOther: {
+    backgroundColor: '#778DA9',
   },
   button: {
     backgroundColor: '#778DA9',
