@@ -10,7 +10,7 @@ export default function ReceiveMessage() {
   }, []);
 
   const fetchMessages = () => {
-    axios.get('<http://node.cci.drexel.edu:9378/api/messages>')
+    axios.get('http://node.cci.drexel.edu:9378/api/messages')
       .then(response => {
         setMessages(response.data);
       })

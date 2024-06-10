@@ -7,7 +7,7 @@ function SendMessage() {
 
   const sendMessage = () => {
     axios
-      .post('<http://node.cci.drexel.edu:9378/api/messages>', {
+      .post('http://node.cci.drexel.edu:9378/api/messages', {
         content: message,
       })
       .then(() => {
@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     padding: 10,
     margin: 10,
     borderRadius: 20,
-    fontFamily: 'Arial', // Replace this with your preferred font
   },
   button: {
     backgroundColor: '#778DA9',

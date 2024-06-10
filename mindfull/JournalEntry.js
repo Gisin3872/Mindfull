@@ -8,7 +8,7 @@ export default function JournalEntry() {
   const [badThing, setBadThing] = useState('');
 
   const submitEntry = () => {
-    axios.post('<http://node.cci.drexel.edu:9378/api/journals>', {
+    axios.post('http://node.cci.drexel.edu:9378/api/journals', {
       feeling: feeling,
       goodThing: goodThing,
       badThing: badThing
