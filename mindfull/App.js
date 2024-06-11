@@ -16,7 +16,11 @@ const Stack = createStackNavigator();
 
 const EntryStack = () => (
   <Stack.Navigator>
-    <Stack.Screen name="View Past Entries" component={PastEntries} />
+    <Stack.Screen
+      name="View Past Entries"
+      component={PastEntries}
+      options={{ headerShown: false }}
+    />
     <Stack.Screen name="EntryDetail" component={EntryDetail} />
   </Stack.Navigator>
 );

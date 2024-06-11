@@ -2,23 +2,32 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
 import axios from 'axios';
 import moment from 'moment';
+import { List } from 'react-native-paper';
+import { Colors } from 'react-native-paper';
 
-const Item = ({ id, feeling, timestamp }) => {
-const formattedTimestamp = moment(timestamp).format('MM-DD-YYYY');
-  
-    return (
-        <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('EntryDetail', { id: id })}>
-          <Text style={styles.title}>Feeling: {feeling}</Text>
-          <Text style={styles.date}>Date: {formattedTimestamp}</Text>
-        </TouchableOpacity>
-      );
-    };
+const Item = ({ id, feeling, timestamp, goodThing, badThing, index }) => {
+  const formattedTimestamp = moment(timestamp).format('MM-DD-YYYY');
+  const backgroundColor = index % 2 === 0 ? '#415A77' : '#778DA9';
+
+  return (
+    <List.Accordion
+      title={`Feeling: ${feeling}`}
+      description={`Date: ${formattedTimestamp}`}
+      style={{ backgroundColor: backgroundColor }}
+      titleStyle={{ color: '#1B263B' }}
+      descriptionStyle={{ color: '#1B263B' }}
+    >
+      <List.Item title={`Good Thing: ${goodThing}`} style={{ backgroundColor: '#778DA9' }} titleStyle={{ color: '#E0E1DD' }} />
+      <List.Item title={`Bad Thing: ${badThing}`} style={{ backgroundColor: '#778DA9' }} titleStyle={{ color: '#E0E1DD' }} />
+    </List.Accordion>
+  );
+};
 
 const PastEntries = ({ navigation }) => {
   const [entries, setEntries] = useState([]);
 
   useEffect(() => {
-    axios.get('http://node.cci.drexel.edu:9378/api/journals')
+    axios.get('<http://node.cci.drexel.edu:9378/api/journals>')
       .then(response => {
         setEntries(response.data);
       })
@@ -27,15 +36,8 @@ const PastEntries = ({ navigation }) => {
       });
   }, []);
 
-  const Item = ({ id, feeling, timestamp }) => (
-    <TouchableOpacity style={styles.item} onPress={() => navigation.navigate('EntryDetail', { id: id })}>
-      <Text style={styles.title}> {feeling}</Text>
-      <Text style={styles.date}> {timestamp}</Text>
-    </TouchableOpacity>
-  );
-
-  const renderItem = ({ item }) => (
-    <Item id={item.EntryId} feeling={item.Feeling} timestamp={item.Timestamp} />
+  const renderItem = ({ item, index }) => (
+    <Item id={item.EntryId} feeling={item.Feeling} timestamp={item.Timestamp} goodThing={item.GoodThing} badThing={item.BadThing} index={index} />
   );
 
   return (
@@ -50,24 +52,24 @@ const PastEntries = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#E0E1DD'
-    },
-    item: {
-      borderBottomColor: '#778DA9',
-      borderBottomWidth: 1,
-      padding: 10
-    },
-    title: {
-      color: '#1B263B',
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
-    date: {
-      color: '#778DA9',
-      fontSize: 14
-    }
-  });
+  container: {
+    flex: 1,
+    backgroundColor: '#778DA9',
+  },
+  item: {
+    borderBottomColor: '#778DA9',
+    borderBottomWidth: 1,
+    padding: 10
+  },
+  title: {
+    color: '#1B263B',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  date: {
+    color: '#1B263B',
+    fontSize: 14
+  }
+});
 
 export default PastEntries;

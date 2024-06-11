@@ -8,7 +8,8 @@ const EntryDetail = ({ route, navigation }) => {
   const [entry, setEntry] = useState(null);
 
   useEffect(() => {
-    axios.get(`http://node.cci.drexel.edu:9378/api/journals/${EntryId}`)
+    console.log(id);
+    axios.get(`http://node.cci.drexel.edu:9378/api/journals/${id}`)
       .then(response => {
         setEntry(response.data);
       })
@@ -21,7 +22,6 @@ const EntryDetail = ({ route, navigation }) => {
     <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}>
       {entry ? (
         <>
-          <Text style={{ fontSize: 24, fontWeight: 'bold' }}>Entry ID: {entry.EntryId}</Text>
           <Text style={{ fontSize: 18, color: 'gray' }}>Feeling: {entry.Feeling}</Text>
           <Text style={{ fontSize: 18, color: 'gray' }}>Timestamp: {entry.Timestamp}</Text>
           <Text style={{ fontSize: 16 }}>Good Thing: {entry.GoodThing}</Text>
