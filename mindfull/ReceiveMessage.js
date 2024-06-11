@@ -10,19 +10,9 @@ export default function ReceiveMessage() {
   }, []);
 
   const fetchMessages = () => {
-    axios.get('<http://node.cci.drexel.edu:9378/api/messages>')
+    axios.get('http://node.cci.drexel.edu:9378/api/messages')
       .then(response => {
-        const newMessages = [];
-        response.data.forEach((message, index) => {
-          newMessages.push(message);
-          if (index % 2 === 0) {
-            newMessages.push({
-              UserId: '5893',
-              Content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-            });
-          }
-        });
-        setMessages(newMessages);
+        setMessages(response.data);
       })
       .catch(() => {
         Alert.alert('Error', 'Could not fetch messages');
@@ -64,7 +54,7 @@ export default function ReceiveMessage() {
       padding: 10,
       margin: 10,
       borderRadius: 20,
-      width: '70%',
+      width: '80%',
       flexGrow: 1,
     },
     messageText: {

@@ -6,17 +6,22 @@ function SendMessage() {
   const [message, setMessage] = useState('');
 
   const sendMessage = () => {
-    axios
-      .post('http://node.cci.drexel.edu:9378/api/messages', {
+    axios.post('http://node.cci.drexel.edu:9378/api/messages', {
         content: message,
         UserId: '1123',
       })
       .then(() => {
-        Alert.alert('Success', 'Message sent');
+        return axios.post('http://node.cci.drexel.edu:9378/api/messages', {
+          content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+          UserId: '3820',
+        });
+      })
+      .then(() => {
+        Alert.alert('Success', 'Messages sent');
         setMessage('');
       })
       .catch(() => {
-        Alert.alert('Error', 'Could not send message');
+        Alert.alert('Error', 'Could not send messages');
       });
   };
 
